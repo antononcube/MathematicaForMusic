@@ -13,7 +13,10 @@ This notebook shows how to make [Nightcore](https://en.wikipedia.org/wiki/Nightc
 
 The Nightcore transformation of the song was fairly straightforward with Mathematica / WL. The video transformation and combination are also fairly straightforward or easy.
 
-**Remark:** Here is the final result uploaded to YouTube: https://www.youtube.com/watch?v=8UsR9L3KPIU .
+**Remark:** Here is the final result uploaded to YouTube (https://www.youtube.com/watch?v=8UsR9L3KPIU):
+
+[![](https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/0ffx6fronoawk.png)]( https://www.youtube.com/watch?v=8UsR9L3KPIU)
+
 
 ## Get movies
 
