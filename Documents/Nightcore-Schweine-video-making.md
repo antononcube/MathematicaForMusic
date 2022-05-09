@@ -9,13 +9,13 @@ May 2022
 
 This notebook shows how to make [Nightcore](https://en.wikipedia.org/wiki/Nightcore) modifications to a song video. We use [Glukoza's](http://www.glukoza.com) song "Schweine". The song "Schweine" became popular via the [radio station Vladivostok FM](https://gta.fandom.com/wiki/Radio_Stations_in_GTA_IV#Vladivostok_FM) of the game ["Grand Theft Auto IV"](https://en.wikipedia.org/wiki/Grand_Theft_Auto_IV). 
 
-**Remark:** We use Schweine since its licencing allows copies of it to be (publically) played [via YouTube](https://www.youtube.com/watch?v=8UsR9L3KPIU).
+**Remark:** We use Schweine since its licencing allows copies of it to be (publicly) played [via YouTube](https://www.youtube.com/watch?v=8UsR9L3KPIU).
 
 The Nightcore transformation of the song was fairly straightforward with Mathematica / WL. The video transformation and combination are also fairly straightforward or easy.
 
 **Remark:** Here is the final result uploaded to YouTube: https://www.youtube.com/watch?v=8UsR9L3KPIU .
 
-## Get movie
+## Get movies
 
 Here is a link to the official video: https://www.youtube.com/watch?v=Ue5ZBe-GzSM .
 
@@ -29,11 +29,11 @@ Here we import the downloaded video:
 vdSubSchweine = Import["~/Downloads/Glukoza Nostra - Schweine -subtitled-.mp4"]
 ```
 
-![1ow21rc06glgb](./Diagrams/Nightcore-Schweine-video-making/1ow21rc06glgb.png)
+![1ow21rc06glgb](https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/1ow21rc06glgb.png)
 
 ## Make Nightcore audio
 
-The process for making a song Nighcore is described in Wikipedia, [Wk1]. Basically, we just make the tempo 20-30% faster and raise the pitch with, ≈5.5 semitones.
+The process for making a song Nightcore is described in Wikipedia, [Wk1]. Basically, we just make the tempo 20-30% faster and raise the pitch with, ≈5.5 semitones.
 
 **Remark:** An alternative of the process shown in this section is to use audio transformation programs like [Audacity](https://www.audacityteam.org) and [AmadeusPro](https://apps.apple.com/us/app/amadeus-pro/id438292371?mt=12).
 
@@ -43,7 +43,7 @@ Here we get the audio from the video:
 auSchweine = Audio[vdSubSchweine]
 ```
 
-![1uuz3gsogs93f](./Diagrams/Nightcore-Schweine-video-making/1uuz3gsogs93f.png)
+![1uuz3gsogs93f](https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/1uuz3gsogs93f.png)
 
 Here we change the tempo to be 20% faster: 
 
@@ -53,7 +53,7 @@ AbsoluteTiming[
  ]
 ```
 
-![1n7u00nxdhs7q](./Diagrams/Nightcore-Schweine-video-making/1n7u00nxdhs7q.png)
+![1n7u00nxdhs7q](https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/1n7u00nxdhs7q.png)
 
 Here we raise the pitch with $5.5$ semitones:
 
@@ -63,7 +63,7 @@ AbsoluteTiming[
  ]
 ```
 
-![005j44hxpz7h0](./Diagrams/Nightcore-Schweine-video-making/005j44hxpz7h0.png)
+![005j44hxpz7h0](https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/005j44hxpz7h0.png)
 
 ## Get lyrics
 
@@ -71,7 +71,7 @@ Although, we have a video with English subtitles, it would be interesting to exp
 
 Instead of just copy-&-pasting the text I took screenshot of lyrics here: https://lyrics-on.net/en/1023698-schweine-shvajjne-lyrics.html .
 
-![0jnweyevtrddx](./Diagrams/Nightcore-Schweine-video-making/0jnweyevtrddx.png)
+![0jnweyevtrddx](https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/0jnweyevtrddx.png)
 
 Here the image above is split into two halves and they displayed in a grid:
 
@@ -81,7 +81,7 @@ imgLyrics2 = ImageTake[imgLyrics, All, {ImageDimensions[imgLyrics][[2]]/2, -1}];
 GraphicsGrid[{{imgLyrics1, imgLyrics2}}, Dividers -> All, ImageSize -> 700]
 ```
 
-![0nok801otpf32](./Diagrams/Nightcore-Schweine-video-making/0nok801otpf32.png)
+![0nok801otpf32](https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/0nok801otpf32.png)
 
 Here we recognize the lyrics within each half:
 
@@ -89,7 +89,7 @@ Here we recognize the lyrics within each half:
 Grid[{{TextRecognize[imgLyrics1, Language -> "Russian"], TextRecognize[imgLyrics2, Language -> "English"]}}, Dividers -> All]
 ```
 
-![07s8wyhharkul](./Diagrams/Nightcore-Schweine-video-making/07s8wyhharkul.png)
+![07s8wyhharkul](https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/07s8wyhharkul.png)
 
 **Remark:** Because we found a video with subtitles, we do not use further the extracted lyrics in this notebook.
 
@@ -108,7 +108,7 @@ AbsoluteTiming[
 vdSchweine4
 ```
 
-![1x9obucooutc8](./Diagrams/Nightcore-Schweine-video-making/1x9obucooutc8.png)
+![1x9obucooutc8](https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/1x9obucooutc8.png)
 
 **Remark:** Since we want to make both the audio and video shorter we have to use video frames.
 
@@ -166,7 +166,7 @@ AbsoluteTiming[
 vdSubSchweineNightcore
 ```
 
-![0ffx6fronoawk](./Diagrams/Nightcore-Schweine-video-making/0ffx6fronoawk.png)
+![0ffx6fronoawk](https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/0ffx6fronoawk.png)
 
 **Remark:** Here we do not export the video, since Mathematica saves it in a "standard" location of the host operating system.
 

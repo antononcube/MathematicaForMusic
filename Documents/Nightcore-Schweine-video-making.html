@@ -1,0 +1,221 @@
+<h1 id="nightcore-schweine-video-making">Nightcore “Schweine” video
+making</h1>
+<p>Anton Antonov <a
+href="http://mathematicaforprediction.wordpress.com">MathematicaForPrediction
+at WordPress</a> <a
+href="https://github.com/antononcube/MathematicaForPrediction">MathematicaForPrediction
+at GitHub</a> May 2022</p>
+<h2 id="introduction">Introduction</h2>
+<p>This notebook shows how to make <a
+href="https://en.wikipedia.org/wiki/Nightcore">Nightcore</a>
+modifications to a song video. We use <a
+href="http://www.glukoza.com">Glukoza’s</a> song “Schweine”. The song
+“Schweine” became popular via the <a
+href="https://gta.fandom.com/wiki/Radio_Stations_in_GTA_IV#Vladivostok_FM">radio
+station Vladivostok FM</a> of the game <a
+href="https://en.wikipedia.org/wiki/Grand_Theft_Auto_IV">“Grand Theft
+Auto IV”</a>.</p>
+<p><strong>Remark:</strong> We use Schweine since its licencing allows
+copies of it to be (publicly) played <a
+href="https://www.youtube.com/watch?v=8UsR9L3KPIU">via YouTube</a>.</p>
+<p>The Nightcore transformation of the song was fairly straightforward
+with Mathematica / WL. The video transformation and combination are also
+fairly straightforward or easy.</p>
+<p><strong>Remark:</strong> Here is the final result uploaded to
+YouTube: https://www.youtube.com/watch?v=8UsR9L3KPIU .</p>
+<h2 id="get-movies">Get movies</h2>
+<p>Here is a link to the official video:
+https://www.youtube.com/watch?v=Ue5ZBe-GzSM .</p>
+<p>Here is a link to a version with English subtitles:
+https://www.youtube.com/watch?v=9Es1nPWzJ-0 .</p>
+<p>Download at least one of the videos. (Use a Firefox or Google Chrome
+plugin; use <a href="https://www.videolan.org/vlc/">VLC</a>; or utilize
+the paclet described in the post <a
+href="https://b3m2a1.github.io/playing-with-youtube-from-mathematica.html">“Playing
+with YouTube from Mathematica”</a>, [BMI1].)</p>
+<p>Here we import the downloaded video:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>vdSubSchweine <span class="ex">=</span> <span class="fu">Import</span><span class="op">[</span><span class="st">&quot;~/Downloads/Glukoza Nostra - Schweine -subtitled-.mp4&quot;</span><span class="op">]</span></span></code></pre></div>
+<figure>
+<img
+src="https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/1ow21rc06glgb.png"
+alt="1ow21rc06glgb" />
+<figcaption aria-hidden="true">1ow21rc06glgb</figcaption>
+</figure>
+<h2 id="make-nightcore-audio">Make Nightcore audio</h2>
+<p>The process for making a song Nighcore is described in Wikipedia,
+[Wk1]. Basically, we just make the tempo 20-30% faster and raise the
+pitch with, ≈5.5 semitones.</p>
+<p><strong>Remark:</strong> An alternative of the process shown in this
+section is to use audio transformation programs like <a
+href="https://www.audacityteam.org">Audacity</a> and <a
+href="https://apps.apple.com/us/app/amadeus-pro/id438292371?mt=12">AmadeusPro</a>.</p>
+<p>Here we get the audio from the video:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>auSchweine <span class="ex">=</span> Audio<span class="op">[</span>vdSubSchweine<span class="op">]</span></span></code></pre></div>
+<figure>
+<img
+src="https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/1uuz3gsogs93f.png"
+alt="1uuz3gsogs93f" />
+<figcaption aria-hidden="true">1uuz3gsogs93f</figcaption>
+</figure>
+<p>Here we change the tempo to be 20% faster:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AbsoluteTiming</span><span class="op">[</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  auSchweineFaster <span class="ex">=</span> AudioTimeStretch<span class="op">[</span>auSchweine<span class="op">,</span> <span class="dv">1</span><span class="sc">/</span><span class="fl">1.2</span><span class="op">]</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a> <span class="op">]</span></span></code></pre></div>
+<figure>
+<img
+src="https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/1n7u00nxdhs7q.png"
+alt="1n7u00nxdhs7q" />
+<figcaption aria-hidden="true">1n7u00nxdhs7q</figcaption>
+</figure>
+<p>Here we raise the pitch with <span class="math inline">5.5</span>
+semitones:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AbsoluteTiming</span><span class="op">[</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  auSchweineNightcore <span class="ex">=</span> AudioPitchShift<span class="op">[</span>auSchweineFaster<span class="op">,</span> Quantity<span class="op">[</span><span class="fl">5.5</span><span class="op">,</span> <span class="st">&quot;Semitones&quot;</span><span class="op">]]</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a> <span class="op">]</span></span></code></pre></div>
+<figure>
+<img
+src="https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/005j44hxpz7h0.png"
+alt="005j44hxpz7h0" />
+<figcaption aria-hidden="true">005j44hxpz7h0</figcaption>
+</figure>
+<h2 id="get-lyrics">Get lyrics</h2>
+<p>Although, we have a video with English subtitles, it would be
+interesting to experiment with adding subtitles to the video or
+“discovering” the subtitles in the video frames.</p>
+<p>Instead of just copy-&amp;-pasting the text I took screenshot of
+lyrics here:
+https://lyrics-on.net/en/1023698-schweine-shvajjne-lyrics.html .</p>
+<figure>
+<img
+src="https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/0jnweyevtrddx.png"
+alt="0jnweyevtrddx" />
+<figcaption aria-hidden="true">0jnweyevtrddx</figcaption>
+</figure>
+<p>Here the image above is split into two halves and they displayed in a
+grid:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>imgLyrics1 <span class="ex">=</span> <span class="fu">ImageTake</span><span class="op">[</span>imgLyrics<span class="op">,</span> <span class="cn">All</span><span class="op">,</span> <span class="op">{</span><span class="dv">1</span><span class="op">,</span> <span class="fu">ImageDimensions</span><span class="op">[</span>imgLyrics<span class="op">][[</span><span class="dv">2</span><span class="op">]]</span><span class="sc">/</span><span class="dv">2</span><span class="op">}]</span>;</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>imgLyrics2 <span class="ex">=</span> <span class="fu">ImageTake</span><span class="op">[</span>imgLyrics<span class="op">,</span> <span class="cn">All</span><span class="op">,</span> <span class="op">{</span><span class="fu">ImageDimensions</span><span class="op">[</span>imgLyrics<span class="op">][[</span><span class="dv">2</span><span class="op">]]</span><span class="sc">/</span><span class="dv">2</span><span class="op">,</span> <span class="sc">-</span><span class="dv">1</span><span class="op">}]</span>;</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">GraphicsGrid</span><span class="op">[{{</span>imgLyrics1<span class="op">,</span> imgLyrics2<span class="op">}},</span> <span class="fu">Dividers</span> <span class="ot">-&gt;</span> <span class="cn">All</span><span class="op">,</span> <span class="fu">ImageSize</span> <span class="ot">-&gt;</span> <span class="dv">700</span><span class="op">]</span></span></code></pre></div>
+<figure>
+<img
+src="https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/0nok801otpf32.png"
+alt="0nok801otpf32" />
+<figcaption aria-hidden="true">0nok801otpf32</figcaption>
+</figure>
+<p>Here we recognize the lyrics within each half:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Grid</span><span class="op">[{{</span><span class="fu">TextRecognize</span><span class="op">[</span>imgLyrics1<span class="op">,</span> Language <span class="ot">-&gt;</span> <span class="st">&quot;Russian&quot;</span><span class="op">],</span> <span class="fu">TextRecognize</span><span class="op">[</span>imgLyrics2<span class="op">,</span> Language <span class="ot">-&gt;</span> <span class="st">&quot;English&quot;</span><span class="op">]}},</span> <span class="fu">Dividers</span> <span class="ot">-&gt;</span> <span class="cn">All</span><span class="op">]</span></span></code></pre></div>
+<figure>
+<img
+src="https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/07s8wyhharkul.png"
+alt="07s8wyhharkul" />
+<figcaption aria-hidden="true">07s8wyhharkul</figcaption>
+</figure>
+<p><strong>Remark:</strong> Because we found a video with subtitles, we
+do not use further the extracted lyrics in this notebook.</p>
+<h2 id="direct-video-styling">Direct video styling</h2>
+<p>We only wanted to change how the video <em>looks</em> we can directly
+manipulate the video frames with VideoFrameMap, [WRI6] :</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AbsoluteTiming</span><span class="op">[</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">k</span> <span class="ex">=</span> <span class="dv">0</span>; </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  vdSchweine4 <span class="ex">=</span> VideoFrameMap<span class="op">[</span><span class="fu">Switch</span><span class="op">[</span><span class="fu">Mod</span><span class="op">[</span><span class="fu">k</span><span class="sc">++</span><span class="op">,</span> <span class="dv">500</span><span class="op">]</span> &lt; <span class="dv">250</span><span class="op">,</span> <span class="cn">True</span><span class="op">,</span> <span class="fu">EdgeDetect</span><span class="op">[</span>#<span class="op">],</span> <span class="cn">False</span><span class="op">,</span> <span class="fu">ImageEffect</span><span class="op">[</span>#<span class="op">,</span> <span class="st">&quot;EdgeStylization&quot;</span><span class="op">]]</span> &amp;<span class="op">,</span> vdSubSchweine<span class="op">]</span>; </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a> <span class="op">]</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>vdSchweine4</span></code></pre></div>
+<figure>
+<img
+src="https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/1x9obucooutc8.png"
+alt="1x9obucooutc8" />
+<figcaption aria-hidden="true">1x9obucooutc8</figcaption>
+</figure>
+<p><strong>Remark:</strong> Since we want to make both the audio and
+video shorter we have to use video frames.</p>
+<h2 id="make-nightcore-video">Make Nightcore video</h2>
+<p>Get the frames of the video:</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AbsoluteTiming</span><span class="op">[</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  lsFrames <span class="ex">=</span> VideoExtractFrames<span class="op">[</span>vdSubSchweine<span class="op">,</span> <span class="cn">All</span><span class="op">]</span>; </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a> <span class="op">]</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">(*{11.5501, Null}*)</span></span></code></pre></div>
+<p>Show the number of frames:</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Length</span><span class="op">[</span>lsFrames<span class="op">]</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">(*9041*)</span></span></code></pre></div>
+<p>Change all the frames to have the “Sepia” image effect:</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AbsoluteTiming</span><span class="op">[</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  lsFramesSepia <span class="ex">=</span> <span class="fu">ParallelMap</span><span class="op">[</span><span class="fu">ImageEffect</span><span class="op">[</span>#<span class="op">,</span> <span class="st">&quot;Sepia&quot;</span><span class="op">]</span> &amp;<span class="op">,</span> lsFrames<span class="op">]</span>; </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a> <span class="op">]</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">(*{124.898, Null}*)</span></span></code></pre></div>
+<p>Generate (audio-less) video from the list of frames that have the
+same length as the generated audio:</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AbsoluteTiming</span><span class="op">[</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  vdSubSchweineNew <span class="ex">=</span> VideoGenerator<span class="op">[</span>lsFramesSepia<span class="op">,</span> Duration<span class="op">[</span>auSchweineNightcore<span class="op">]]</span>; </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a> <span class="op">]</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">(*{115.34, Null}*)</span></span></code></pre></div>
+<p>Combine the video and audio (into a new video):</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AbsoluteTiming</span><span class="op">[</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  vdSubSchweineNightcore <span class="ex">=</span> VideoCombine<span class="op">[{</span>vdSubSchweineNew<span class="op">,</span> auSchweineNightcore<span class="op">}]</span>; </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a> <span class="op">]</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">(*{0.576532, Null}*)</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode mathematica"><code class="sourceCode mathematica"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>vdSubSchweineNightcore</span></code></pre></div>
+<figure>
+<img
+src="https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/0ffx6fronoawk.png"
+alt="0ffx6fronoawk" />
+<figcaption aria-hidden="true">0ffx6fronoawk</figcaption>
+</figure>
+<p><strong>Remark:</strong> Here we do not export the video, since
+Mathematica saves it in a “standard” location of the host operating
+system.</p>
+<h2 id="references">References</h2>
+<p>[BMA1] b3m2ma1, <a
+href="https://community.wolfram.com/groups/-/m/t/1484511">“Playing with
+YouTube from Mathematica”</a>, (2018), Wolfram Community. (<a
+href="https://b3m2a1.github.io/playing-with-youtube-from-mathematica.html">GitHub
+link</a>.)</p>
+<p>[Wk1] Wikipedia entry, <a
+href="https://en.wikipedia.org/wiki/Nightcore">“Nightcore”</a>.</p>
+<p>[WRI1] Wolfram Research (2010), TextRecognize, Wolfram Language
+function, https://reference.wolfram.com/language/ref/TextRecognize.html
+(updated 2020).</p>
+<p>[WRI2] Wolfram Research (2016), Audio, Wolfram Language function,
+https://reference.wolfram.com/language/ref/Audio.html (updated
+2020).</p>
+<p>[WRI3] Wolfram Research (2016), AudioTimeStretch, Wolfram Language
+function,
+https://reference.wolfram.com/language/ref/AudioTimeStretch.html
+(updated 2020).</p>
+<p>[WRI4] Wolfram Research (2016), AudioPitchShift, Wolfram Language
+function,
+https://reference.wolfram.com/language/ref/AudioPitchShift.html (updated
+2020).</p>
+<p>[WRI5] Wolfram Research (2020), VideoExtractFrames, Wolfram Language
+function,
+https://reference.wolfram.com/language/ref/VideoExtractFrames.html.</p>
+<p>[WRI6] Wolfram Research (2020), VideoFrameMap, Wolfram Language
+function, https://reference.wolfram.com/language/ref/VideoFrameMap.html
+(updated 2021).</p>
+<p>[WRI7] Wolfram Research (2008), ImageEffect, Wolfram Language
+function, https://reference.wolfram.com/language/ref/ImageEffect.html
+(updated 13).</p>
+<p>[WRI8] Wolfram Research (2020), VideoGenerator, Wolfram Language
+function, https://reference.wolfram.com/language/ref/VideoGenerator.html
+(updated 2021).</p>
+<p>[WRI9] Wolfram Research (2020), VideoCombine, Wolfram Language
+function,
+https://reference.wolfram.com/language/ref/VideoCombine.html.</p>
