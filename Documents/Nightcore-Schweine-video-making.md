@@ -32,7 +32,7 @@ Here we import the downloaded video:
 vdSubSchweine = Import["~/Downloads/Glukoza Nostra - Schweine -subtitled-.mp4"]
 ```
 
-![1ow21rc06glgb](https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/1ow21rc06glgb.png)
+![](https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/1ow21rc06glgb.png)
 
 ## Make Nightcore audio
 
@@ -46,7 +46,7 @@ Here we get the audio from the video:
 auSchweine = Audio[vdSubSchweine]
 ```
 
-![1uuz3gsogs93f](https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/1uuz3gsogs93f.png)
+![](https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/1uuz3gsogs93f.png)
 
 Here we change the tempo to be 20% faster: 
 
@@ -56,7 +56,7 @@ AbsoluteTiming[
  ]
 ```
 
-![1n7u00nxdhs7q](https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/1n7u00nxdhs7q.png)
+![](https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/1n7u00nxdhs7q.png)
 
 Here we raise the pitch with $5.5$ semitones:
 
@@ -66,7 +66,7 @@ AbsoluteTiming[
  ]
 ```
 
-![005j44hxpz7h0](https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/005j44hxpz7h0.png)
+![](https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/005j44hxpz7h0.png)
 
 ## Get lyrics
 
@@ -74,7 +74,7 @@ Although, we have a video with English subtitles, it would be interesting to exp
 
 Instead of just copy-&-pasting the text I took screenshot of lyrics here: https://lyrics-on.net/en/1023698-schweine-shvajjne-lyrics.html .
 
-![0jnweyevtrddx](https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/0jnweyevtrddx.png)
+![](https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/0jnweyevtrddx.png)
 
 Here the image above is split into two halves and they displayed in a grid:
 
@@ -84,7 +84,7 @@ imgLyrics2 = ImageTake[imgLyrics, All, {ImageDimensions[imgLyrics][[2]]/2, -1}];
 GraphicsGrid[{{imgLyrics1, imgLyrics2}}, Dividers -> All, ImageSize -> 700]
 ```
 
-![0nok801otpf32](https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/0nok801otpf32.png)
+![](https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/0nok801otpf32.png)
 
 Here we recognize the lyrics within each half:
 
@@ -92,13 +92,13 @@ Here we recognize the lyrics within each half:
 Grid[{{TextRecognize[imgLyrics1, Language -> "Russian"], TextRecognize[imgLyrics2, Language -> "English"]}}, Dividers -> All]
 ```
 
-![07s8wyhharkul](https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/07s8wyhharkul.png)
+![](https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/07s8wyhharkul.png)
 
 **Remark:** Because we found a video with subtitles, we do not use further the extracted lyrics in this notebook.
 
 ## Direct video styling
 
-We only wanted to change how the video *looks* we can directly manipulate the video frames with VideoFrameMap, [WRI6] :
+If we only wanted to change how the video *looks* we can directly manipulate the video frames with VideoFrameMap, [WRI6] :
 
 ```mathematica
 AbsoluteTiming[
@@ -111,7 +111,7 @@ AbsoluteTiming[
 vdSchweine4
 ```
 
-![1x9obucooutc8](https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/1x9obucooutc8.png)
+![](https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/1x9obucooutc8.png)
 
 **Remark:** Since we want to make both the audio and video shorter we have to use video frames.
 
@@ -169,7 +169,7 @@ AbsoluteTiming[
 vdSubSchweineNightcore
 ```
 
-![0ffx6fronoawk](https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/0ffx6fronoawk.png)
+![](https://github.com/antononcube/MathematicaForMusic/raw/master/Documents/Diagrams/Nightcore-Schweine-video-making/0ffx6fronoawk.png)
 
 **Remark:** Here we do not export the video, since Mathematica saves it in a "standard" location of the host operating system.
 
