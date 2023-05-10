@@ -1,0 +1,196 @@
+<h2>Introduction</h2>
+This post shows how to make <a href="https://en.wikipedia.org/wiki/Nightcore">Nightcore</a> modifications to a song video. We use <a href="https://dolphinmusic.ru">Dolphin</a> 's song "Spring" ("Весна").
+
+<strong>Remark:</strong> We use "Spring" since its licencing allows copies of it to be (publicly) played <a href="https://www.youtube.com/watch?v=8UsR9L3KPIU">via YouTube</a> .
+
+<strong>Remark:</strong> The post follows closely a <a href="https://mathematicaforprediction.wordpress.com/2022/05/09/nightcore-schweine-video-making/">previous post of mine about making nightcore version of the song "Schweine"</a>.
+
+The Nightcore transformation of the song was fairly straightforward with Mathematica / WL. The video transformation and combination are also fairly straightforward or easy.
+
+<strong>Remark:</strong> Here is the final result uploaded to YouTube:
+
+<a href="https://youtu.be/GTlIzxSDSAA"><img class="alignnone size-full wp-image-1305" src="https://mathematicaforprediction.files.wordpress.com/2023/05/nightcore-dolphin-spring-thumbnail.png" alt="Nightcore-Dolphin-Spring-thumbnail" width="620" height="496"></a>
+<h2>Get movies</h2>
+Here is a link to the official video: https://www.youtube.com/watch?v=P47V4SASwGc .
+
+I downloaded the videos from after searching yandex.ru (dzen.ru). Alternatively, one can find and download videos in Firefox or Google Chrome via relevant plugins. (Or use <a href="https://www.videolan.org/vlc/">VLC</a> ; or utilize the paclet described in the post <a href="https://b3m2a1.github.io/playing-with-youtube-from-mathematica.html">"Playing with YouTube from Mathematica"</a> , [BMI1].)
+
+At this point I have a small official video and larger one. This gives the opportunity to demonstrate transferring of the "Dolphin" signature from the "official" video to the larger one. (See the frame manipulation below.)
+
+Here we import the downloaded small "official" video:
+<pre><code class="mathematica">
+vdSpring0 = Import["~/Downloads/Dolphin-Spring-videoclip.mp4"]
+</code></pre>
+<img src="https://raw.githubusercontent.com/antononcube/MathematicaForMusic/master/Documents/Diagrams/Nightcore-Dolphin-Spring-video-making/0up57w194t7mb.png" alt="0up57w194t7mb">
+
+Here we import the larger downloaded video:
+<pre><code class="mathematica">
+vdSpring = Import["~/Downloads/Дельфин \[LongDash] Весна.mp4"]
+</code></pre>
+<img src="https://raw.githubusercontent.com/antononcube/MathematicaForMusic/master/Documents/Diagrams/Nightcore-Dolphin-Spring-video-making/1bd1zbdxppned.png" alt="1bd1zbdxppned">
+<h2>Getting Dolphin's "signature"</h2>
+Here we is the first frame from the "official" video:
+<pre><code class="mathematica">
+frameSign = VideoExtractFrames[vdSpring0, 0]
+</code></pre>
+<img src="https://raw.githubusercontent.com/antononcube/MathematicaForMusic/master/Documents/Diagrams/Nightcore-Dolphin-Spring-video-making/0u3peo5aimdel.png" alt="0u3peo5aimdel">
+
+Here we binarize the image:
+<pre><code class="mathematica">
+frameSignBW = Binarize[frameSign]
+</code></pre>
+<img src="https://raw.githubusercontent.com/antononcube/MathematicaForMusic/master/Documents/Diagrams/Nightcore-Dolphin-Spring-video-making/14sznwdgmt6t7.png" alt="14sznwdgmt6t7">
+
+Before adding that image to video frames it is resized, darkened, and "smoothed." Something like this:
+<pre><code class="mathematica">
+ImageEffect[#, "OilPainting"] &amp;@Darker[ImageResize[frameSignBW, 2*ImageDimensions[frameSignBW]], 0.7]
+</code></pre>
+<img src="https://raw.githubusercontent.com/antononcube/MathematicaForMusic/master/Documents/Diagrams/Nightcore-Dolphin-Spring-video-making/05dqdfit561tp.png" alt="05dqdfit561tp">
+<h2>Make Nightcore audio</h2>
+The process for making a song Nightcore is described in Wikipedia, [Wk1]. Basically, we just make the tempo 20-30% faster and raise the pitch with, <code>\approx 5.5</code> semitones.
+
+<strong>Remark:</strong> An alternative of the process shown in this section is to use audio transformation programs like <a href="https://www.audacityteam.org">Audacity</a> and <a href="https://apps.apple.com/us/app/amadeus-pro/id438292371?mt=12">AmadeusPro</a> .
+
+Here we get the audio from the video:
+<pre><code class="mathematica">
+auSpring = Audio[vdSpring]
+</code></pre>
+<img src="https://raw.githubusercontent.com/antononcube/MathematicaForMusic/master/Documents/Diagrams/Nightcore-Dolphin-Spring-video-making/0vxw2kdih3hmg.png" alt="0vxw2kdih3hmg">
+
+Here we change the tempo to be 20% faster:
+<pre><code class="mathematica">
+AbsoluteTiming[
+  auSpringFaster = AudioTimeStretch[auSpring, 1/1.2]
+ ]
+</code></pre>
+<img src="https://raw.githubusercontent.com/antononcube/MathematicaForMusic/master/Documents/Diagrams/Nightcore-Dolphin-Spring-video-making/0cztw139kthxy.png" alt="0cztw139kthxy">
+
+Here we raise the pitch with <code>5.5</code> semitones:
+<pre><code class="mathematica">
+AbsoluteTiming[
+  auSpringNightcore = AudioPitchShift[auSpringFaster, Quantity[5.5, "Semitones"]]
+ ]
+</code></pre>
+<img src="https://raw.githubusercontent.com/antononcube/MathematicaForMusic/master/Documents/Diagrams/Nightcore-Dolphin-Spring-video-making/0rs8kv89xo3y9.png" alt="0rs8kv89xo3y9">
+<h2>Get lyrics</h2>
+Although, we have a video with English subtitles, it would be interesting to experiment with adding subtitles to the video or "discovering" the subtitles in the video frames.
+
+Instead of just copy-&amp;-pasting the text I took screenshot of lyrics here: https://lyrics-on.net/en/1096839-vesna-vesna-lyrics.html
+
+<img src="https://raw.githubusercontent.com/antononcube/MathematicaForMusic/master/Documents/Diagrams/Nightcore-Dolphin-Spring-video-making/0cg71l6powom8.png" alt="0cg71l6powom8">
+
+Here the image above is split into two halves and they displayed in a grid:
+<pre><code class="mathematica">
+imgLyrics1 = ImageTake[imgLyrics, All, {1, ImageDimensions[imgLyrics][[2]]/1.3}];
+imgLyrics2 = ImageTake[imgLyrics, All, {ImageDimensions[imgLyrics][[2]]/1.3, -1}];
+GraphicsGrid[{{imgLyrics1, imgLyrics2}}, Dividers -&gt; All, ImageSize -&gt; 700]
+</code></pre>
+Here we recognize the lyrics within each half:
+<pre><code class="mathematica">
+Grid[{{TextRecognize[imgLyrics1, Language -&gt; "Russian"], TextRecognize[imgLyrics2, Language -&gt; "English"]}}, Dividers -&gt; All]
+</code></pre>
+<img src="https://raw.githubusercontent.com/antononcube/MathematicaForMusic/master/Documents/Diagrams/Nightcore-Dolphin-Spring-video-making/11pimedkmg0cz.png" alt="11pimedkmg0cz">
+
+<strong>Remark:</strong> Because we found a video with subtitles, we do not use further the extracted lyrics in this notebook.
+<h2>Direct video styling</h2>
+If we only wanted to change how the video <em>looks</em> we can directly manipulate the video frames with VideoFrameMap, [WRI6] :
+<pre><code class="mathematica">
+AbsoluteTiming[
+  k = 0;
+  vdSpring4 = VideoFrameMap[Switch[Mod[k++, 500] &lt; 250, True, EdgeDetect[#], False, ImageEffect[#, "EdgeStylization"]] &amp;, vdSpring];
+ ]
+
+(*{1221.98, Null}*)
+</code></pre>
+<pre><code class="mathematica">
+vdSpring4
+</code></pre>
+<img src="https://raw.githubusercontent.com/antononcube/MathematicaForMusic/master/Documents/Diagrams/Nightcore-Dolphin-Spring-video-making/16vqoanffmhne.png" alt="16vqoanffmhne">
+
+<strong>Remark:</strong> Since we want to make both the audio and video shorter we have to use video frames.
+<h2>Make Nightcore video</h2>
+Get the frames of the video:
+<pre><code class="mathematica">
+AbsoluteTiming[
+  lsFrames = VideoExtractFrames[vdSpring, All];
+ ]
+
+(*{8.04196, Null}*)
+</code></pre>
+Show the number of frames:
+<pre><code class="mathematica">
+Length[lsFrames]
+
+(*7156*)
+</code></pre>
+Change all the frames to have the "ColorBoosting" image effect:
+<pre><code class="mathematica">
+AbsoluteTiming[
+  lsFramesBoost = ParallelMap[ImageEffect[#, "ColorBoosting"] &amp;, lsFrames];
+ ]
+
+(*{239.268, Null}*)
+</code></pre>
+Here we resize the "signature" image, "smooth" it, and then add it to all of the "boosted" frames:
+<pre><code class="mathematica">
+AbsoluteTiming[
+  lsFramesBoostSigned =
+    Block[{frameSignBW = ImageEffect[#, "OilPainting"] &amp;@Darker[ImageResize[frameSignBW, ImageDimensions[lsFramesBoost[[1]]]], 0.85]},
+     Map[ImageAdd[#, frameSignBW] &amp;, lsFramesBoost]
+    ];
+ ]
+
+(*{8.61014, Null}*)
+</code></pre>
+Here is how the 10-th frame looks like:
+<pre><code class="mathematica">
+lsFramesBoostSigned[[10]]
+</code></pre>
+<img src="https://raw.githubusercontent.com/antononcube/MathematicaForMusic/master/Documents/Diagrams/Nightcore-Dolphin-Spring-video-making/0r7uiekngv7f3.png" alt="0r7uiekngv7f3">
+
+Generate (audio-less) video from the list of frames that have the same length as the generated audio:
+<pre><code class="mathematica">
+AbsoluteTiming[
+  vdSpringNew = VideoGenerator[lsFramesBoostSigned, Duration[auSpringNightcore]];
+ ]
+
+(*{95.209, Null}*)
+</code></pre>
+Combine the video and audio (into a new video):
+<pre><code class="mathematica">
+AbsoluteTiming[
+  vdSpringNightcore = VideoCombine[{vdSpringNew, auSpringNightcore}];
+ ]
+
+(*{0.07271, Null}*)
+</code></pre>
+<pre><code class="mathematica">
+vdSpringNightcore
+</code></pre>
+<img src="https://raw.githubusercontent.com/antononcube/MathematicaForMusic/master/Documents/Diagrams/Nightcore-Dolphin-Spring-video-making/0dvupxody23tu.png" alt="0dvupxody23tu">
+
+<strong>Remark:</strong> Here we do not export the video, since Mathematica saves it in a "standard" location of the host operating system.
+<h2>References</h2>
+[BMA1] b3m2ma1, <a href="https://community.wolfram.com/groups/-/m/t/1484511">"Playing with YouTube from Mathematica"</a> , (2018), Wolfram Community. ([GitHub link](https://b3m2a1.github.io/playing-with-youtube-from-mathematica.html).)
+
+[DM1] Dolphin, https://dolphinmusic.ru .
+
+[Wk1] Wikipedia entry, <a href="https://en.wikipedia.org/wiki/Nightcore">"Nightcore"</a> .
+
+[WRI1] Wolfram Research (2010), TextRecognize, Wolfram Language function, https://reference.wolfram.com/language/ref/TextRecognize.html (updated 2020).
+
+[WRI2] Wolfram Research (2016), Audio, Wolfram Language function, https://reference.wolfram.com/language/ref/Audio.html (updated 2020).
+
+[WRI3] Wolfram Research (2016), AudioTimeStretch, Wolfram Language function, https://reference.wolfram.com/language/ref/AudioTimeStretch.html (updated 2020).
+
+[WRI4] Wolfram Research (2016), AudioPitchShift, Wolfram Language function, https://reference.wolfram.com/language/ref/AudioPitchShift.html (updated 2020).
+
+[WRI5] Wolfram Research (2020), VideoExtractFrames, Wolfram Language function, https://reference.wolfram.com/language/ref/VideoExtractFrames.html.
+
+[WRI6] Wolfram Research (2020), VideoFrameMap, Wolfram Language function, https://reference.wolfram.com/language/ref/VideoFrameMap.html (updated 2021).
+
+[WRI7] Wolfram Research (2008), ImageEffect, Wolfram Language function, https://reference.wolfram.com/language/ref/ImageEffect.html (updated 13).
+
+[WRI8] Wolfram Research (2020), VideoGenerator, Wolfram Language function, https://reference.wolfram.com/language/ref/VideoGenerator.html (updated 2021).
+
+[WRI9] Wolfram Research (2020), VideoCombine, Wolfram Language function, https://reference.wolfram.com/language/ref/VideoCombine.html.
