@@ -11,6 +11,9 @@ This notebook shows how to make [Nightcore](https://en.wikipedia.org/wiki/Nightc
 
 **Remark:** We use "Spring" since its licencing allows copies of it to be (publicly) played [via YouTube](https://www.youtube.com/watch?v=8UsR9L3KPIU).
 
+**Remark:** The notebook follows closely a previously created one about making 
+[Nightcore version of the song “Schweine”](https://github.com/antononcube/MathematicaForMusic/blob/master/Documents/Nightcore-Schweine-video-making.md).
+
 The Nightcore transformation of the song was fairly straightforward with Mathematica / WL. The video transformation and combination are also fairly straightforward or easy.
 
 **Remark:** Here is the final result uploaded to YouTube: 
@@ -226,6 +229,11 @@ vdSpringNightcore
 **Remark:** Here we do not export the video, since Mathematica saves it in a "standard" location of the host operating system.
 
 ## References
+
+[AA1] Anton Antonov,
+["Nightcore Schweine video making"](https://github.com/antononcube/MathematicaForMusic/blob/master/Documents/Nightcore-Schweine-video-making.md),
+(2022),
+[MathematicaForMusic at GitHub](https://github.com/antononcube/MathematicaForMusic).
 
 [BMA1]  b3m2ma1, ["Playing with YouTube from Mathematica"](https://community.wolfram.com/groups/-/m/t/1484511), (2018), Wolfram Community. ([GitHub link](https://b3m2a1.github.io/playing-with-youtube-from-mathematica.html).)
 
